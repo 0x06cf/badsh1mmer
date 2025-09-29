@@ -6,7 +6,7 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 set -eE
 
 SCRIPT_DATE="[2025-08-26]"
-SCRIPT_BUILD="0.0.1 BETA"
+SCRIPT_BUILD="1.1.4"
 PAYLOAD_DIR=/usb/usr/sbin/scripts
 RECOVERY_KEY_LIST="$PAYLOAD_DIR"/short_recovery_keys.txt
 
@@ -19,14 +19,20 @@ fail() {
 }
 
 clear
-
-echo "===============================================BADSH1MMER========================================"
-echo "                                              $SCRIPT_DATE"
-echo "                                             v$SCRIPT_BUILD"
-echo "                                          https://crosbreaker.dev"
-echo "                                  https://github.com/crosbreaker/BadSH1mmer"
-echo "================================================================================================="
-echo "                                         Select a script to run:"
+echo "┌───────────────────────────────────────────────────────────────┐"
+echo "│  _               _     _     _                                │"
+echo "│ | |__   __ _  __| |___| |__ / |_ __ ___  _ __ ___   ___ _ __  │"
+echo "│ | '_ \ / _` |/ _` / __| '_ \| | '_ ` _ \| '_ ` _ \ / _ \ '__| │"
+echo "│ | |_) | (_| | (_| \__ \ | | | | | | | | | | | | | |  __/ |    │"
+echo "│ |_.__/ \__,_|\__,_|___/_| |_|_|_| |_| |_|_| |_| |_|\___|_|    │"
+echo "│                                                               │"
+echo "└───────────────────────────────────────────────────────────────┘"
+echo ""
+echo "$SCRIPT_DATE"
+echo "v$SCRIPT_BUILD"
+echo "https://crosbreaker.dev"
+echo "https://github.com/crosbreaker/BadSH1mmer"
+echo ""
 echo "(1) Br0ker / unenrollment up to kernver 5, By OlyB. Ported to BadRecovery by HarryJarry1"
 echo "(2) Caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
 echo "(3) Icarus / unenrollment up to r129, by writable"
