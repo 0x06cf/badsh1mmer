@@ -19,15 +19,7 @@ fail() {
 }
 
 clear
-echo "┌───────────────────────────────────────────────────────────────┐"
-echo "│  _               _     _     _                                │"
-echo "│ | |__   __ _  __| |___| |__ / |_ __ ___  _ __ ___   ___ _ __  │"
-echo "│ | '_ \ / _` |/ _` / __| '_ \| | '_ ` _ \| '_ ` _ \ / _ \ '__| │"
-echo "│ | |_) | (_| | (_| \__ \ | | | | | | | | | | | | | |  __/ |    │"
-echo "│ |_.__/ \__,_|\__,_|___/_| |_|_|_| |_| |_|_| |_| |_|\___|_|    │"
-echo "│                                                               │"
-echo "└───────────────────────────────────────────────────────────────┘"
-echo ""
+echo "IF8gICAgICAgICAgICAgICBfICAgICBfICAgICBfICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAp8IHxfXyAgIF9fIF8gIF9ffCB8X19ffCB8X18gLyB8XyBfXyBfX18gIF8gX18gX19fICAgX19fIF8gX18gCnwgJ18gXCAvIF9gIHwvIF9gIC8gX198ICdfIFx8IHwgJ18gYCBfIFx8ICdfIGAgXyBcIC8gXyBcICdfX3wKfCB8XykgfCAoX3wgfCAoX3wgXF9fIFwgfCB8IHwgfCB8IHwgfCB8IHwgfCB8IHwgfCB8ICBfXy8gfCAgIAp8Xy5fXy8gXF9fLF98XF9fLF98X19fL198IHxffF98X3wgfF98IHxffF98IHxffCB8X3xcX19ffF98ICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=" | base64 -d
 echo "$SCRIPT_DATE"
 echo "v$SCRIPT_BUILD"
 echo "https://crosbreaker.dev"
