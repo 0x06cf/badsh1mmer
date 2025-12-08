@@ -65,8 +65,8 @@ rm recovery.zip || fail "Failed to delete zipped recovery image"
 
 #more murkmod code
 FILENAME=$(find . -maxdepth 2 -name "chromeos_*.bin") # 2 incase the zip format changes
-mv $FILENAME $board-badsh1mmer.bin
-FILENAME=$(find . -maxdepth 2 -name "*-badsh1mmer.bin")
+mv $FILENAME badsh1mmer-$board.bin
+FILENAME=$(find . -maxdepth 2 -name "badsh1mmer-*.bin")
 echo "Found recovery image from archive at $FILENAME"
 
 echo "running update_downloader.sh"
