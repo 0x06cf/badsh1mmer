@@ -4,6 +4,7 @@
 fail(){
 	printf "$1\n"
 	printf "exiting...\n"
+	sleep 3 # so people have time to photograph/record error outputs in reports
 	exit
 }
 main(){
@@ -23,7 +24,12 @@ chroot /localroot cgpt add "$intdis" -i $(get_booted_kernnum) -P 10 -T 5 -S 1
         echo "w" 
     ) | chroot /localroot /sbin/fdisk "$intdis"
 crossystem disable_dev_request=1
-wipelvm || chroot /localroot /sbin/mkfs.ext4 -F "$intdis$indis_prefix"p1
+if mount "$intdis$intdis_prefix"1 /stateful; then
+	umount /stateful
+	chroot /localroot /sbin/mkfs.ext4 -F "$intdis$intdis_prefix"1
+else
+	wipelvm || fail "could not find and wipe ext4 or lvm stateful, does it exist?"
+fi
 for rootdir in dev proc run sys; do
   umount /localroot/"${rootdir}"
 done
@@ -38,7 +44,7 @@ wipelvm(){
     if mount "/dev/$volgroup/unencrypted" /stateful; then
 			rm -rf /stateful/*
 			umount /stateful
-		fi
+	fi
 }
 get_internal() {
 	# get_largest_cros_blockdev does not work in BadApple.
