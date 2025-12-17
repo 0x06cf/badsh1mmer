@@ -34,13 +34,35 @@ get_fixed_dst_drive() {
 	echo "${dev}"
 }
 TARGET_DEVICE=$(get_fixed_dst_drive)
-if echo "$TARGET_DEVICE" | grep -q '[0-9]$'; then
-	TARGET_DEVICE_P="$TARGET_DEVICE"p
-else
-	TARGET_DEVICE_P="$TARGET_DEVICE"
-fi
-dd if=/dev/urandom of="$TARGET_DEVICE_P"2 >/dev/null 2>&1 # tuff!
-dd if=/dev/urandom of="$TARGET_DEVICE_P"4 >/dev/null 2>&1
+device_type=$(echo "$TARGET_DEVICE" | grep -oE 'blk0|blk1||nvme|sda' | head -n 1)
+  case $device_type in
+  "blk0")
+    intdis=/dev/mmcblk0
+      intdis_prefix="p"
+    break
+    ;;
+  "blk1")
+    intdis=/dev/mmcblk1
+      intdis_prefix="p"
+    break
+    ;;
+  "nvme")
+    intdis=/dev/nvme0
+      intdis_prefix="n"
+    break
+    ;;
+  "sda")
+    intdis=/dev/sda
+      intdis_prefix=""
+    break
+    ;;
+  *)
+    exit 1
+    ;;
+  esac
+
+dd if=/dev/urandom of="$TARGET_DEVICE_P$intdis_prefix"2 >/dev/null 2>&1 # tuff!
+dd if=/dev/urandom of="$TARGET_DEVICE_P$intdis_prefix"4 >/dev/null 2>&1
 echo "Done!" 
 sleep 4
 clear
