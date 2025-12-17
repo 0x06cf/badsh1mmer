@@ -35,10 +35,11 @@ jobs:
           sudo apt-get install -y pv
           sudo pip3 install protobuf six --break-system-packages
           sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
+          zip badsh1mmer-"${{ matrix.board }}".zip badsh1mmer"${{ matrix.board }}".bin
           
       - name: create release
         uses: ading2210/gh-large-releases@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: badsh1mmer-*.bin
+          files: badsh1mmer-*.zip
           make_latest: true
