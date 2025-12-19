@@ -34,12 +34,25 @@ prep_quicksilver() {
 	mkdir -p /run/vpd  /localrootA /localrootB
 	mount "$intdis$intdis_prefix"3 /localrootA -o ro
 	mount "$intdis$intdis_prefix"5 /localrootB -o ro
-	if $(expr $(cat /localrootA/etc/lsb-release | grep MILESTONE | sed 's/^.*=//') > 142) && $(expr $(cat /localrootB/etc/lsb-release | grep MILESTONE | sed 's/^.*=//') > 142);
+	
+	for root in A B; do
+		if $(expr $(cat /localroot"$root"/etc/lsb-release | grep MILESTONE | sed 's/^.*=//') > 142 ); then
+			root_"$root"_patched=true
+		fi
+	done
+	if $root_A_patched && $root_B_patched; then
   	echo "quicksilver is patched on 143, please downgrade."
   	echo "sleeping then exiting..."
   	sleep 5
   	exit 1
+	elif $root_A_patched && !$root_B_patched; then
+		cgpt add "$intdis$intdis_prefix" -i 2 -P 0
+		cgpt add "$intdis$intdis_prefix" -i 4 -P 1
+	elif !$root_A_patched && $root_B_patched; then
+		cgpt add "$intdis$intdis_prefix" -i 2 -P 1
+		cgpt add "$intdis$intdis_prefix" -i 4 -P 0
 	fi
+
 	if vpd -i RW_VPD -l | grep re_enrollment > /dev/null 2>&1; then
 		quicksilver=true
 	else
@@ -92,12 +105,6 @@ get_internal() {
 
 get_internal
 prep_quicksilver
-if $(expr $(cat /localrootA/etc/lsb-release | grep MILESTONE | sed 's/^.*=//') > 142) && $(expr $(cat /localrootB/etc/lsb-release | grep MILESTONE | sed 's/^.*=//') > 142);
-  echo "quicksilver is patched on 143, please downgrade."
-	echo "sleeping then exiting..."
-  sleep 5
-	exit 1
-fi
 if [ $quicksilver = true ]; then
 	read -p "Quicksilver is ENABLED. Would you like to disable it? (y/n)" -n 1 -r
 	echo
