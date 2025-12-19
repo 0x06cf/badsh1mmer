@@ -21,7 +21,7 @@ badsh1mmer is a sh1mmer payloads menu injected into badrecovery unverified, allo
 ### How do I make a usb?
 Download an prebuilt from the [prebuilts section](#prebuilts), or build an image your self with the above commands.  
 On Windows, use Rufus to flash.
-On MacOS/Linux, use dd as follows:
+On Linux, use dd as follows:
 ```sh
 sudo dd if=/path/to/badsh1mmer.bin of=/dev/sdX bs=1M status=progress
 ```
