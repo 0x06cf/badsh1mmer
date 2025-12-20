@@ -34,7 +34,6 @@ echo "(5) Unkeyroll, by Cruzy22k"
 echo "(6) Touch .developer_mode (skip 5 minute delay)"
 echo "(7) Daub / Originally found by Hannah, script by mariah carey"
 echo "(8) Quicksilver / Unenrollment up to kernver 6, By emerwyi. Script by mariah carey"
-echo "(9) Fanxql injection / Unenrollment up to kv67, By fanxql and silky (tuff!)"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -73,10 +72,6 @@ elif [ "$choice" = "7" ]; then
         sleep infinity
 elif [ "$choice" = "badrecovery" ]; then # this is just for debugging.
     /bin/sh "$PAYLOAD_DIR/badrecovery_debug.sh"
-        sh /usb/usr/sbin/payloads_menu.sh
-        sleep infinity
-elif [ "$choice" = "9" ]; then
-    /bin/sh "$PAYLOAD_DIR/fanxql.sh"
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
 elif [ "$choice" = "8" ]; then
