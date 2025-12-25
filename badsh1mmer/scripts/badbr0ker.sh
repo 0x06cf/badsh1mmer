@@ -3,6 +3,10 @@
 # The vulnerable code was removed in r133 via https://crrev.com/c/6040974
 # A new kernel version (6 for most boards) is expected to release in r138 or r139.
 # Made by OlyB :D Enjoy :D
+
+echo "Br0ker is deprecated, please use quicksilver instead."
+echo "Press enter to continue anyway, or CTRL+C to return to the menu."
+read -r tempvar
 SCRIPT_DIR=$(dirname "$0")
 SCRIPT_DIR=${SCRIPT_DIR:-"."}
 
