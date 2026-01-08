@@ -27,7 +27,8 @@ sudo dd if=/path/to/badsh1mmer.bin of=/dev/sdX bs=1M status=progress
 ```
 (remember to replace X with the actual usb's letter identifier)
 ### I have a usb, what now?
-Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
+If below kv6, complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
+Else, complete [sh1ttyexec](https://github.com/crosbreaker/sh1ttyexec)
 ### Prebuilts
 
 [GitHub Release](https://github.com/crosbreaker/badsh1mmer/releases/latest)
