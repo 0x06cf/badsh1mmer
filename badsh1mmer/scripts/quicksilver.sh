@@ -36,8 +36,8 @@ prep_quicksilver() {
 	mount "$intdis$intdis_prefix"5 /localrootB -o ro
 	
 	for root in A B; do
-		if $(expr $(cat /localroot"$root"/etc/lsb-release | grep MILESTONE | sed 's/^.*=//') > 142 ); then
-			root_"$root"_patched=true
+		if [ "$(sed -n 's/^MILESTONE=//p' /localroot"$root"/etc/lsb-release)" -gt 142 ]; then
+    	root_"$root"_patched=true
 		fi
 	done
 	if $root_A_patched && $root_B_patched; then
