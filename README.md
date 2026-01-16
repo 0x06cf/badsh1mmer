@@ -25,7 +25,6 @@ On Linux, use dd as follows:
 ```sh
 sudo dd if=/path/to/badsh1mmer.bin of=/dev/sdX bs=1M status=progress
 ```
-On Mac, use BalenaEtcher.
 
 (remember to replace X with the actual usb's letter identifier)
 ### I have a usb, what now?
