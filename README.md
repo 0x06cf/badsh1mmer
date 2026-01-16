@@ -19,12 +19,14 @@ sudo ./build_badrecovery.sh -i image.bin -t unverified
 badsh1mmer is a sh1mmer payloads menu injected into badrecovery unverified, allowing for unenrollment on keyrolled kv6 ChromeOS devices.
 
 ### How do I make a usb?
-Download an prebuilt from the [prebuilts section](#prebuilts), or build an image your self with the above commands.  
+Download an prebuilt from the [prebuilts section](#prebuilts), or build an image yourself with the above commands.  
 On Windows, use Rufus to flash.
 On Linux, use dd as follows:
 ```sh
 sudo dd if=/path/to/badsh1mmer.bin of=/dev/sdX bs=1M status=progress
 ```
+On Mac, use BalenaEtcher.
+
 (remember to replace X with the actual usb's letter identifier)
 ### I have a usb, what now?
 If below kv6, complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb <br>
