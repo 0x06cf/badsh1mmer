@@ -34,7 +34,7 @@ Else, complete [sh1ttyexec](https://github.com/crosbreaker/sh1ttyexec)
 
 [GitHub Release](https://github.com/crosbreaker/badsh1mmer/releases/latest)
 
-[dl.crosbreaker.dev](https://dl.crosbreaker.dev/badsh1mmer)
+[dl.crosbreaker.dev](https://dl.crosbreaker.dev/ChromeOS/modified-recovery/badsh1mmer)
 ### Credits:
 [HarryJarry1](https://github.com/HarryJarry1) - Badbr0ker, finding the VPD vulnerability
 
