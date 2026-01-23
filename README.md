@@ -36,7 +36,7 @@ Else, complete [sh1ttyexec](https://github.com/crosbreaker/sh1ttyexec)
 
 [dl.crosbreaker.dev](https://dl.crosbreaker.dev/ChromeOS/modified-recovery/badsh1mmer)
 ### Credits:
-[HarryJarry1](https://github.com/HarryJarry1) - Badbr0ker, finding the VPD vulnerability
+[HarryTarryJarry](https://github.com/HarryTarryJarry) - Badbr0ker, finding the VPD vulnerability
 
 [BinBashBanana](https://github.com/binbashbanana) - original br0ker, badrecovery
 
