@@ -37,14 +37,14 @@ prep_quicksilver() {
 	
 	for root in A B; do
 		if [ "$(cat /localroot"$root"/etc/lsb-release | grep MILESTONE | sed 's/^.*=//')" -gt 142 ]; then
-    	root_"$root"_patched=true
+    	local root_"$root"_patched=true
 		else
-			root_"$root"_patched=false
+			local root_"$root"_patched=false
 		fi	
 	done
 	if [ $root_A_patched == true ] && [ $root_B_patched == true ]; then
   	echo "quicksilver is patched on 143"
-  	read -p "override? (y/N)" -n 1 -r
+  	read -p $'override? (y/N)\n' -n 1 -r
 		echo
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			echo "continuing..."
@@ -65,6 +65,7 @@ prep_quicksilver() {
 		quicksilver=false
 	fi
 	vpd -i RW_VPD -l > /run/vpd/rw.txt
+	umount /localroot*
 }
 do_quicksilver() {
 	vpd -i RW_VPD -s "re_enrollment_key"="$(hexdump -e '1/1 "%02x"' -v -n 32 /dev/urandom)" > /dev/null 2>&1
@@ -111,14 +112,15 @@ get_internal() {
 
 get_internal
 prep_quicksilver
+
 if [ $quicksilver = true ]; then
-	read -p "Quicksilver is ENABLED. Would you like to disable it? (y/n)" -n 1 -r
+	read -p $'Quicksilver is ENABLED. Would you like to disable it? (y/n)\n' -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		undo_quicksilver
 	fi
 else
-	read -p "Quicksilver is DISABLED. Would you like to enable it? (y/n)" -n 1 -r
+	read -p $'Quicksilver is DISABLED. Would you like to enable it? (y/n)\n' -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		do_quicksilver
