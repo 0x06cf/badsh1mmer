@@ -38,17 +38,23 @@ prep_quicksilver() {
 	for root in A B; do
 		if [ "$(cat /localroot"$root"/etc/lsb-release | grep MILESTONE | sed 's/^.*=//')" -gt 142 ]; then
     	root_"$root"_patched=true
-		fi
+		else
+			root_"$root"_patched=false
+		fi	
 	done
-	if $root_A_patched && $root_B_patched; then
-  	echo "quicksilver is patched on 143, please downgrade."
-  	echo "sleeping then exiting..."
-  	sleep 5
-  	exit 1
-	elif $root_A_patched && !$root_B_patched; then
+	if [ $root_A_patched == true ] && [ $root_B_patched == true ]; then
+  	echo "quicksilver is patched on 143"
+  	read -p "override? (y/N)" -n 1 -r
+		echo
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			echo "continuing..."
+		else
+			fail "please downgrade."
+		fi
+	elif [ $root_A_patched == true ] && [ $root_B_patched == false ]; then
 		cgpt add "$intdis$intdis_prefix" -i 2 -P 0
 		cgpt add "$intdis$intdis_prefix" -i 4 -P 1
-	elif !$root_A_patched && $root_B_patched; then
+	elif [ $root_A_patched == false ] && [ $root_B_patched == true ]; then
 		cgpt add "$intdis$intdis_prefix" -i 2 -P 1
 		cgpt add "$intdis$intdis_prefix" -i 4 -P 0
 	fi
