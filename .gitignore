@@ -1,2 +1,3 @@
 # don't commit reco images to the repository!!
 *.bin
+*.bin.old
