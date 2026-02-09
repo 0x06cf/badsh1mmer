@@ -67,8 +67,8 @@ main(){
 
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "!!!! if you see any signature errors below this, ignore them, they are intended !!!!"
-  echo -e "$NEW_LAYOUT" | sfdisk "$OUTPUT_FILE" --force --quiet
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo -e "$NEW_LAYOUT" | sfdisk "$OUTPUT_FILE" --force --quiet
 
   echo "Done!"
   exit 0
