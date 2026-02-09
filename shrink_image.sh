@@ -2,10 +2,21 @@
 # Copyright (c) 2026 kxtzownsu
 # A copy of the MIT license should have been provided alongside this file.
 
+# partition numbers to delete
+DELETE_PARTS="6 7 8 9 10 11 12"
+
 dlog(){
   if [ "$DEBUG" = "1" ]; then
     printf '%s\n' "$*"
   fi
+}
+
+should_delete_part() {
+  local part="$1"
+  for num in $DELETE_PARTS; do
+    [ "$part" = "$num" ] && return 0
+  done
+  return 1
 }
 
 main(){
@@ -31,20 +42,39 @@ main(){
   fi
 
   echo "Shrinking $INPUT_FILE to $OUTPUT_FILE"
+  [ -n "$DELETE_PARTS" ] && echo "Deleting partitions: $DELETE_PARTS"
 
   DUMP=$(sfdisk -d "$INPUT_FILE")
 
-  TOTAL_PART_SIZE=$(echo "$DUMP" | grep -o "size=[ ]*[0-9]*" | awk -F= '{sum += $2} END {print sum}')
+  PART_DATA=$(echo "$DUMP" | grep "^$INPUT_FILE" | sed "s|^$INPUT_FILE[p]*||")
+
+  TOTAL_PART_SIZE=0
+  while read -r LINE; do
+    PART_NUM=$(echo "$LINE" | awk -F'[: ]' '{print $1}')
+    PART_SIZE=$(echo "$LINE" | grep -o "size=[ ]*[0-9]*" | cut -d= -f2 | tr -d ' ')
+
+    if should_delete_part "$PART_NUM"; then
+      dlog "Skipping size for deleted partition $PART_NUM"
+      continue
+    fi
+
+    TOTAL_PART_SIZE=$((TOTAL_PART_SIZE + PART_SIZE))
+  done <<< "$PART_DATA"
+
   TOTAL_DISK_SECTORS=$((TOTAL_PART_SIZE + 4096))
   truncate -s $((TOTAL_DISK_SECTORS * SECTOR_SIZE)) "$OUTPUT_FILE"
 
   CURRENT_START=$SECTOR_START
   NEW_LAYOUT="label: gpt\nunit: sectors\n\n"
 
-  PART_DATA=$(echo "$DUMP" | grep "^$INPUT_FILE" | sed "s|^$INPUT_FILE[p]*||")
-
   while read -r LINE; do
     PART_NUM=$(echo "$LINE" | awk -F'[: ]' '{print $1}')
+
+    if should_delete_part "$PART_NUM"; then
+      dlog "Deleting partition $PART_NUM"
+      continue
+    fi
+
     PART_OLD_START=$(echo "$LINE" | grep -o "start=[ ]*[0-9]*" | cut -d= -f2 | tr -d ' ')
     PART_SIZE=$(echo "$LINE" | grep -o "size=[ ]*[0-9]*" | cut -d= -f2 | tr -d ' ')
     PART_TYPE=$(echo "$LINE" | grep -o "type=[^ ,]*")
@@ -68,8 +98,7 @@ main(){
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "!!!! if you see any signature errors below this, ignore them, they are intended !!!!"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  echo -e "$NEW_LAYOUT" | sfdisk "$OUTPUT_FILE" --force --quiet
-
+	echo -e "$NEW_LAYOUT" | sfdisk "$OUTPUT_FILE" --force --quiet
   echo "Done!"
   exit 0
 }
