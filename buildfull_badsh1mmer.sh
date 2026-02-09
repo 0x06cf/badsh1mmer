@@ -54,13 +54,13 @@ fi
 
 findimage
 
-echo "Downloading 129 recovery image"
+echo "Downloading $recoveryver recovery image"
 wget --show-progress "$FINAL_URL" -O recovery.zip || fail "Failed to download recovery image"
 
-echo "Extracting 129 recovery image"
+echo "Extracting $recoveryver recovery image"
 unzip recovery.zip || fail "Failed to unzip recovery image"
 
-echo "Deleting 129 recovery image zip (unneeded now)"
+echo "Deleting $recoveryver recovery image zip (unneeded now)"
 rm recovery.zip || fail "Failed to delete zipped recovery image"
 
 #more murkmod code
