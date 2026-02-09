@@ -65,8 +65,8 @@ rm recovery.zip || fail "Failed to delete zipped recovery image"
 
 #more murkmod code
 FILENAME=$(find . -maxdepth 2 -name "chromeos_*.bin") # 2 incase the zip format changes
-mv $FILENAME badsh1mmer-$board.bin
-FILENAME=$(find . -maxdepth 2 -name "badsh1mmer-*.bin")
+mv $FILENAME badsh1mmer-large-$board.bin
+FILENAME=$(find . -maxdepth 2 -name "badsh1mmer-large-*.bin")
 echo "Found recovery image from archive at $FILENAME"
 
 # echo "running update_downloader.sh"
@@ -74,7 +74,13 @@ echo "Found recovery image from archive at $FILENAME"
 
 echo "running build_badrecovery.sh (requires root)"
 sudo bash ./build_badrecovery.sh -i "$FILENAME" -t unverified || fail "build_badrecovery.sh exited with an error"
-# echo "Cleaning up directory"
+
+echo "removing unallocated space from $FILENAME"
+echo "thanks to kxtz for writing this :D"
+SMALLFILE=$(echo "$FILENAME" | sed "s/-large//")
+sudo bash ./shrink_image.sh $FILENAME $SMALLFILE || fail "shrink_image.sh exited with an error"
+echo "cleaning up directory"
+rm $FILENAME
 # rm badsh1mmer/scripts/root.gz
 # rm badsh1mmer/scripts/kern.gz
-echo "File saved to $FILENAME"
+echo "File saved to $SMALLFILE"
