@@ -30,9 +30,7 @@ jobs:
       - name: run build
         run: |
           set -x
-          sudo apt-get install -y protobuf-compiler pv
           sudo apt-get install -y pv
-          sudo pip3 install protobuf six --break-system-packages
           sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
 
       - name: create release
