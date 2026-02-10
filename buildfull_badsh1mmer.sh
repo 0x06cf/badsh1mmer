@@ -35,8 +35,8 @@ findimage(){ # Taken from murkmod
         echo "$mercury_url"
    else
 		recoveryver=126
-		findimage()
-	fi 
+		findimage
+    fi 
 }
 check_deps() {
 	for dep in "$@"; do
