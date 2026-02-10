@@ -43,7 +43,7 @@ check_deps() {
 		command -v "$dep" &>/dev/null || echo "$dep"
 	done
 }
-missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar jq) # more are needed fror br0ker
+missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar jq curl wget) # more are needed for br0ker
 [ "$missing_deps" ] && fail "The following required commands weren't found in PATH:\n${missing_deps}"
 
 findimage
