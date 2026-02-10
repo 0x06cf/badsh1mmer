@@ -3,11 +3,7 @@
 
 board=$1
 if ! [ -z $1 ]; then
-  if [ "$board" = "eve" ]; then
-     recoveryver=126
-  else
-     recoveryver=129
-  fi
+	recoveryver=129
 else
   echo "Usage: sudo bash ./buildfull_badsh1mmer.sh <board>"
   exit 1
@@ -37,7 +33,10 @@ findimage(){ # Taken from murkmod
         FINAL_URL="$mercury_url"
         MATCH_FOUND=1
         echo "$mercury_url"
-    fi
+   else
+		recoveryver=126
+		findimage()
+	fi 
 }
 check_deps() {
 	for dep in "$@"; do
