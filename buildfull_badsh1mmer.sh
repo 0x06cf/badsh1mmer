@@ -1,7 +1,7 @@
 #!/bin/bash
 # simple passthrough script + downloading a 129 image
-
 board=$1
+board=$(echo "$board" | tr '[:upper:]' '[:lower:]') # mw thingy needs lowercase board names
 if ! [ -z $1 ]; then
 	recoveryver=129
 else
