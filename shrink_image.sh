@@ -3,7 +3,7 @@
 # A copy of the MIT license should have been provided alongside this file.
 
 # partition numbers to delete
-DELETE_PARTS="2 8 9 10 11 12"
+DELETE_PARTS="8 9 10 11 12"
 
 dlog(){
   if [ "$DEBUG" = "1" ]; then
