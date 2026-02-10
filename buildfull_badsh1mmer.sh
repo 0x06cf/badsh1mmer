@@ -43,13 +43,8 @@ check_deps() {
 		command -v "$dep" &>/dev/null || echo "$dep"
 	done
 }
-missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl wget git python3 protoc gzip jq)
+missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar jq) # more are needed fror br0ker
 [ "$missing_deps" ] && fail "The following required commands weren't found in PATH:\n${missing_deps}"
-if ! [ -f .venv ]; then
-	python3 -m venv .venv || fail "couldn't make python venv"
-	source .venv/bin/activate
-	pip install argparse protobuf six || fail "failed to download one or more of the following python packages: argparse, protobuf, six"
-fi
 
 findimage
 
