@@ -1,5 +1,5 @@
 ### badsh1mmer
-
+testing if i have write perms
 # Support
 If you need any kind of support, please join our [discord server](https://discord.gg/nrMVY29MUb) for help
 ### If you would like the script to do everything for you:
