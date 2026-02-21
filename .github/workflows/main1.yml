@@ -1,0 +1,40 @@
+# Thanks to https://github.com/ading2210/badrecovery for the orginal badrecovery workflow file
+on: workflow_dispatch
+name: build
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    
+    strategy: 
+      matrix:
+        board: [octopus,brya, nissa, dedede, corsola, asurada, atlas, cherry, drallion, geralt, nocturne, rammus, rex, sarien, skyrim, staryu, trogdor, eve, hana]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 32768
+          swap-size-mb: 64
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
+      - name: download repo
+        uses: actions/checkout@v4
+      
+      - name: run build
+        run: |
+          set -x
+          sudo apt-get install -y pv
+          sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
+      - name: create release
+        uses: ading2210/gh-large-releases@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: badsh1mmer-*.bin
+          make_latest: true
