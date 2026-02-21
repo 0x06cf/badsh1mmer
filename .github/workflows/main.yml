@@ -1,0 +1,3 @@
+git clone https://github.com/crosbreaker/badsh1mmer
+cd badsh1mmer
+bash buildfull_badsh1mmer.sh octopus
